@@ -883,8 +883,78 @@
   }
 
 
-  /* POPRAVLJEN FLAG COUNTER (E57c) */
-  .flag-clean-wrap {
+  
+  /* 1:1 KOPIJA FLAG COUNTERA SA HOME STRANICE */
+  .flag-clean-wrap { position: fixed; top: 15px; left: calc(50% + 540px + ((50vw - 540px) / 2)); transform: translateX(-50%); z-index: 95; background: #0d0717; border: 2px solid #a855f7; border-bottom: none; border-radius: 10px 10px 0 0; padding: 6px 6px 4px 6px; box-shadow: 0 4px 18px rgba(0,0,0,0.85), 0 0 14px rgba(168,85,247,0.45); }
+.flag-clean-wrap, .live-top-box { position: static; transform: none; margin: 12px auto; border-radius: 10px; border: 2px solid #a855f7; }
+.flag-clean-wrap {
+    position: fixed !important;
+    top: 15px !important;
+    left: calc(50% + 540px + ((100vw - 1080px) / 4)) !important;
+    transform: translateX(-50%) !important;
+    z-index: 95 !important;
+    margin: 0 !important;
+  }
+.flag-clean-wrap, .live-top-box {
+      position: static !important;
+      transform: none !important;
+      margin: 12px auto !important;
+    }
+.flag-clean-wrap, .live-top-box {
+      position: static !important;
+      transform: none !important;
+      margin: 12px auto !important;
+    }
+.flag-clean-wrap {
+    position: fixed;
+    top: 15px;
+    left: calc(50% + 540px + ((50vw - 540px) / 2));
+    transform: translateX(-50%);
+    z-index: 95;
+    background: #0d0717;
+    border: 2px solid #a855f7;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    padding: 6px 6px 4px 6px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.85), 0 0 14px rgba(168, 85, 247, 0.45);
+  }
+.flag-clean-wrap {
+      position: static;
+      transform: none;
+      margin: 16px auto;
+      width: fit-content;
+    }
+.flag-clean-wrap {
+    position: fixed !important;
+    top: 15px !important;
+    left: calc(50% + 540px + ((100vw - 1080px) / 4)) !important;
+    transform: translateX(-50%) !important;
+  }
+.flag-clean-wrap, .live-top-box {
+      position: static !important;
+      transform: none !important;
+      margin: 12px auto !important;
+    }
+.flag-clean-wrap {
+      position: static;
+      transform: none;
+      margin: 16px auto;
+      width: fit-content;
+    }
+.flag-clean-wrap {
+    position: fixed !important;
+    top: 15px !important;
+    left: calc(50% + 540px + ((100vw - 1080px) / 4)) !important;
+    transform: translateX(-50%) !important;
+    z-index: 95 !important;
+    margin: 0 !important;
+  }
+.flag-clean-wrap, .live-top-box {
+      position: static !important;
+      transform: none !important;
+      margin: 12px auto !important;
+    }
+.flag-clean-wrap {
     position: fixed !important;
     top: 15px !important;
     left: calc(50% + 540px + ((100vw - 1080px) / 4)) !important;
@@ -901,11 +971,35 @@
     visibility: visible !important;
     opacity: 1 !important;
   }
-  .flag-clean-wrap img {
+.flag-clean-wrap img {
     display: block !important;
     width: auto !important;
     height: auto !important;
     max-width: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+.flag-clean-wrap {
+      position: static !important;
+      transform: none !important;
+      margin: 12px auto !important;
+      border-bottom: 2px solid #a855f7 !important;
+      border-radius: 10px !important;
+      width: fit-content !important;
+    }
+  .flag-clean-wrap {
+    position: fixed !important;
+    top: 15px !important;
+    left: calc(50% + 540px + ((100vw - 1080px) / 4)) !important;
+    transform: translateX(-50%) !important;
+    z-index: 95 !important;
+    margin: 0 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  .flag-clean-wrap img {
+    display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
@@ -914,9 +1008,100 @@
       position: static !important;
       transform: none !important;
       margin: 12px auto !important;
-      border-bottom: 2px solid #a855f7 !important;
-      border-radius: 10px !important;
-      width: fit-content !important;
+    }
+  }
+
+
+  /* 1:1 KOPIJA LIVE BROJACA SA HOME STRANICE */
+  .live-top-box { position: fixed; top: 294px; left: calc(50% + 540px + ((50vw - 540px) / 2)); transform: translateX(-50%); z-index: 96; width: 132px; padding: 7px 12px; gap: 7px; display: flex; justify-content: center; align-items: center; gap: 5px; background: #0d0717; border: 2px solid #a855f7; border-top: 1.5px solid #ffcc00; border-radius: 0 0 10px 10px; padding: 6px 8px; box-shadow: 0 6px 18px rgba(0,0,0,0.85), 0 0 14px rgba(255,204,0,0.4); }
+.live-top-box { position: static; transform: none; margin: 12px auto; border-radius: 10px; border: 2px solid #a855f7; }
+.live-top-box { border-color: #ffcc00; }
+.live-top-box {
+    position: fixed !important;
+    top: 294px !important;
+    left: calc(50% + 540px + ((100vw - 1080px) / 4)) !important;
+    transform: translateX(-50%) !important;
+    z-index: 96 !important;
+    width: 132px !important;
+    margin: 0 !important;
+  }
+.live-top-box {
+      position: static !important;
+      transform: none !important;
+      margin: 12px auto !important;
+    }
+.live-top-box {
+      position: static !important;
+      transform: none !important;
+      margin: 12px auto !important;
+    }
+.live-top-box {
+      position: static !important;
+      transform: none !important;
+      margin: 12px auto !important;
+    }
+.live-top-box {
+    position: fixed;
+    top: 294px;
+    left: calc(50% + 540px + ((50vw - 540px) / 2));
+    transform: translateX(-50%);
+    z-index: 96;
+    width: 132px; padding: 7px 12px; gap: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background: #0d0717;
+    border: 2px solid #a855f7;
+    border-top: 1.5px solid #ffcc00;
+    border-radius: 0 0 10px 10px;
+    padding: 6px 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.85), 0 0 14px rgba(255, 204, 0, 0.4);
+  }
+.live-top-box, .flag-clean-wrap {
+      position: static;
+      transform: none;
+      margin: 16px auto;
+      width: fit-content;
+    }
+.live-top-box {
+    position: fixed !important;
+    top: 294px !important;
+    left: calc(50% + 540px + ((100vw - 1080px) / 4)) !important;
+    transform: translateX(-50%) !important;
+    width: 132px !important;
+  }
+.live-top-box {
+      position: static !important;
+      transform: none !important;
+      margin: 12px auto !important;
+    }
+.live-top-box {
+    position: fixed !important;
+    top: 294px !important;
+    left: calc(50% + 540px + ((100vw - 1080px) / 4)) !important;
+    transform: translateX(-50%) !important;
+    z-index: 96 !important;
+    margin: 0 !important;
+  }
+.live-top-box {
+      position: static !important;
+      transform: none !important;
+      margin: 12px auto !important;
+    }
+  .live-top-box {
+    position: fixed !important;
+    top: 294px !important;
+    left: calc(50% + 540px + ((100vw - 1080px) / 4)) !important;
+    transform: translateX(-50%) !important;
+    z-index: 96 !important;
+    margin: 0 !important;
+  }
+  @media (max-width: 1280px) {
+    .live-top-box {
+      position: static !important;
+      transform: none !important;
+      margin: 12px auto !important;
     }
   }
 
@@ -1038,7 +1223,7 @@
   </div>
 
   <div class="trusted-box">
-    <div class="trusted-title">⭐ 100% Trusted Seller ⭐</div>
+    <div class="trusted-text">⭐ 100% Trusted Seller ⭐</div>
     <a href="https://epicnpc.com" target="_blank" rel="noopener">
       <img src="slike/epicnpc.png" alt="EpicNPC Trusted Seller">
     </a>
