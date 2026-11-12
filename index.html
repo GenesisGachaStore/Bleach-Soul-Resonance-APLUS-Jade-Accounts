@@ -1168,7 +1168,7 @@
     <img src="slike/jade_banner.jpg" alt="Bleach Soul Resonance Promo Banner">
   </div>
   <!-- FULL BANNER HTML END -->
-  <div class="discord-bar"><span class="discord-text">💬 For any questions, prices or more images, add me on Discord:</span><span class="discord-tag" id="dcTag">GenesisGacha#0271</span><button type="button" class="copy-discord-btn" onclick="kopirajDiscord(this)">📋 Copy</button></div>
+  <div class="discord-bar"><span class="discord-text">💬 For any questions, prices or more images, add me on Discord:</span><span class="discord-tag" id="dcTag">GenesisGacha#0271</span><button type="button" class="copy-discord-btn" onclick="copyDiscordJade(this)">📋 Copy</button></div>
   <!-- PAYMENT BAR HTML START -->
   <div class="payment-bar">
     <span class="payment-label">💳 Accepted Payment Methods:</span>
@@ -1246,14 +1246,7 @@
 
   <script>
     
-    function copyDiscord() {
-      navigator.clipboard.writeText('GenesisGacha#0271');
-      const btn = document.getElementById('copyBtn');
-      if (btn) {
-        btn.innerText = '✔ Copied!';
-        setTimeout(() => btn.innerText = '📋 Copy', 2000);
-      }
-    }
+    
   </script>
 
   <!--Start of Tawk.to Script-->
@@ -1329,6 +1322,57 @@
       if (e.key === 'ArrowRight') changeJadeImg(1);
       if (e.key === 'ArrowLeft') changeJadeImg(-1);
     });
+  </script>
+
+
+  <script>
+    function copyDiscordJade(btn) {
+      var roditelj = btn ? btn.parentElement : null;
+      var tagEl = roditelj ? roditelj.querySelector('.dc-tag, b, strong, span:nth-of-type(2)') : null;
+      var tekst = tagEl ? tagEl.innerText.trim() : "";
+
+      if (!tekst && roditelj) {
+        var m = roditelj.innerText.match(/Discord:\s*([^\s📋✔]+)/i);
+        if (m) tekst = m[1].trim();
+      }
+
+      function prikaziPotvrdu() {
+        if (btn) {
+          var stariTekst = btn.innerText;
+          btn.innerText = "✔ Copied!";
+          btn.style.background = "#16a34a";
+          btn.style.borderColor = "#4ade80";
+          setTimeout(function() {
+            btn.innerText = "📋 Copy";
+            btn.style.background = "";
+            btn.style.borderColor = "";
+          }, 2000);
+        }
+      }
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(tekst).then(prikaziPotvrdu).catch(function() {
+          rezervnoKopiranjeJade(tekst);
+        });
+      } else {
+        rezervnoKopiranjeJade(tekst);
+      }
+
+      function rezervnoKopiranjeJade(val) {
+        var polje = document.createElement("textarea");
+        polje.value = val;
+        polje.style.position = "fixed";
+        polje.style.left = "-9999px";
+        document.body.appendChild(polje);
+        polje.focus();
+        polje.select();
+        try {
+          document.execCommand("copy");
+          prikaziPotvrdu();
+        } catch (err) {}
+        document.body.removeChild(polje);
+      }
+    }
   </script>
 
 </body>
