@@ -2732,6 +2732,8 @@
   }
 
 
+  .discord-bar { position: relative !important; z-index: 9999 !important; pointer-events: auto !important; }
+  .copy-discord-btn { position: relative !important; z-index: 10000 !important; pointer-events: auto !important; cursor: pointer !important; }
 </style>
 <style>
 
@@ -3541,7 +3543,7 @@
     <img src="slike/jade_banner.jpg" alt="Bleach Soul Resonance Promo Banner">
   </div>
   <!-- FULL BANNER HTML END -->
-  <div class="discord-bar"><span class="discord-text">💬 For any questions, prices or more images, add me on Discord:</span><span class="discord-tag" id="dcTag">GenesisGacha#0271</span><button type="button" class="copy-discord-btn" onclick="copyDiscordJade(this)">📋 Copy</button></div>
+  <div class="discord-bar"><span class="discord-text">💬 For any questions, prices or more images, add me on Discord:</span><span class="discord-tag" id="dcTag">GenesisGacha#0271</span><button type="button" class="copy-discord-btn" onclick="(function(b){var t=document.getElementById('dcTag').textContent.trim();var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();ta.setSelectionRange(0,9999);try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);if(navigator.clipboard){navigator.clipboard.writeText(t).catch(function(){});}var o=b.innerHTML;b.innerHTML='&#10003; Copied!';setTimeout(function(){b.innerHTML=o;},2000);})(this)">&#128203; Copy</button></div>
   <!-- PAYMENT BAR HTML START -->
   <div class="payment-bar">
     <span class="payment-label">💳 Accepted Payment Methods:</span>
