@@ -1078,7 +1078,14 @@ body,.layout,.grid,.columns,.side-col,.right-col,.left-col,.sidebar,.container,.
 
     .bleach-top-nav { order: 0 !important; }
     .banner-column { order: 1 !important; }
-    .left-info-stack { order: 2 !important; }
+
+    /* Na mobitelu: banner prvo, odmah zatim Jade galerija/slike */
+    .jade-gallery-grid {
+      order: 2 !important;
+      margin-top: 12px !important;
+    }
+
+    .left-info-stack { order: 3 !important; }
 
     .selling-header:not(.completed-hdr) { order: 3 !important; }
     .selling-header:not(.completed-hdr) + .two-games-row { order: 4 !important; }
