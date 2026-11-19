@@ -380,6 +380,26 @@
       font-weight: bold;
     }
 
+    /* Restore the missing right white edge of the small LIVE "online" widget */
+    .live-widget-frame {
+      display: inline-block;
+      position: relative;
+      vertical-align: middle;
+      line-height: 0;
+    }
+
+    .live-widget-frame::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 1px;
+      height: 14px;
+      background: #ffffff;
+      pointer-events: none;
+      z-index: 2;
+    }
+
     /* Manji laptopi, tableti i mobiteli: elementi se slažu bez horizontalnog skrolanja */
     @media (max-width: 1050px) {
       .hero-layout {
@@ -1239,10 +1259,50 @@ body,.layout,.grid,.columns,.side-col,.right-col,.left-col,.sidebar,.container,.
     .lb-next { right: 10px; }
   }
 
+
+/* Back to Top button */
+.back-to-top {
+  position: fixed !important;
+  right: 145px !important;
+  bottom: 24px !important;
+  z-index: 99999 !important;
+  background: linear-gradient(135deg, #4c1d95 0%, #7e22ce 100%) !important;
+  color: #ffe680 !important;
+  border: 2px solid #ffcc00 !important;
+  border-radius: 50px !important;
+  padding: 12px 18px !important;
+  font-size: 13px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.8px !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.9), 0 0 16px rgba(255, 204, 0, 0.75) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  transition: transform 0.2s ease, background 0.2s ease !important;
+}
+.back-to-top:hover {
+  background: #ffcc00 !important;
+  color: #140a21 !important;
+  transform: translateY(-3px) scale(1.05) !important;
+}
+@media (max-width: 1050px) {
+  .back-to-top {
+    right: 16px !important;
+    bottom: 18px !important;
+    padding: 10px 14px !important;
+  }
+}
+
 </style>
 
 </head>
 <body>
+  <button type="button" class="back-to-top" id="topBtn"
+    onclick="window.scrollTo({top:0,behavior:'smooth'});document.documentElement.scrollTop=0;document.body.scrollTop=0;"
+    aria-label="Back to top">▲ Top</button>
+
   <main class="container">
     <h1 class="visually-hidden">Bleach Soul Resonance APLUS - Jade Accounts</h1>
     <nav class="bleach-top-nav" aria-label="Main navigation">
@@ -1298,8 +1358,10 @@ body,.layout,.grid,.columns,.side-col,.right-col,.left-col,.sidebar,.container,.
         <div class="live-top-box" role="group" title="Real-time visitors online" aria-label="Live visitors online">
           <span class="live-indicator" aria-hidden="true"></span>
           <span class="live-label">LIVE:</span>
-          <script id="_waugen">var _wau = _wau || []; _wau.push(["small", "bleachcat26", "gen"]);</script>
-          <script async src="//waust.at/s.js"></script>
+          <span class="live-widget-frame">
+            <script id="_waugen">var _wau = _wau || []; _wau.push(["small", "bleachcat26", "gen"]);</script>
+            <script async src="//waust.at/s.js"></script>
+          </span>
         </div>
       </aside>
     </div>
@@ -1446,16 +1508,6 @@ body,.layout,.grid,.columns,.side-col,.right-col,.left-col,.sidebar,.container,.
   <!--End of Tawk.to Script-->
 
 
-<script>
-var jadeImagesList = [];
-var currentJadeIdx = 0;
-function refreshJadeList(){jadeImagesList=[];document.querySelectorAll('.jade-card img').forEach(function(el){jadeImagesList.push(el.getAttribute('src'));});}
-function openJadeImg(src){refreshJadeList();currentJadeIdx=jadeImagesList.indexOf(src);if(currentJadeIdx<0)currentJadeIdx=0;updateJadeModal();document.getElementById('jadeLightbox').style.display='flex';}
-function changeJadeImg(step){if(!jadeImagesList.length)refreshJadeList();currentJadeIdx=(currentJadeIdx+step+jadeImagesList.length)%jadeImagesList.length;updateJadeModal();}
-function updateJadeModal(){var img=document.getElementById('jadeLightboxImg'),cnt=document.getElementById('jadeLightboxCounter');if(img&&jadeImagesList.length)img.src=jadeImagesList[currentJadeIdx];if(cnt&&jadeImagesList.length)cnt.innerText=(currentJadeIdx+1)+' / '+jadeImagesList.length;}
-function closeJadeImg(){var lb=document.getElementById('jadeLightbox');if(lb)lb.style.display='none';}
-document.addEventListener('keydown',function(e){var lb=document.getElementById('jadeLightbox');if(!lb||lb.style.display!=='flex')return;if(e.key==='Escape')closeJadeImg();if(e.key==='ArrowRight')changeJadeImg(1);if(e.key==='ArrowLeft')changeJadeImg(-1);});
-</script>
 
 </body>
 </html>
