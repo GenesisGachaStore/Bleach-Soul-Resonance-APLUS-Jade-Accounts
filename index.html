@@ -1375,40 +1375,92 @@ body,.layout,.grid,.columns,.side-col,.right-col,.left-col,.sidebar,.container,.
 
 
 
-    <div class="jade-gallery-grid">
-      <div class="jade-card" onclick="openJadeImg('slike/a.jpg')"><span class="jade-badge">#1</span><img src="slike/a.jpg" alt="Jade Account Offer #1"></div>
-      <div class="jade-card" onclick="openJadeImg('slike/s.jpg')"><span class="jade-badge">#2</span><img src="slike/s.jpg" alt="Jade Account Offer #2"></div>
-      <div class="jade-card" onclick="openJadeImg('slike/d.jpg')"><span class="jade-badge">#3</span><img src="slike/d.jpg" alt="Jade Account Offer #3"></div>
-      <div class="jade-card" onclick="openJadeImg('slike/f.jpg')"><span class="jade-badge">#4</span><img src="slike/f.jpg" alt="Jade Account Offer #4"></div>
-      <div class="jade-card" onclick="openJadeImg('slike/g.jpg')"><span class="jade-badge">#5</span><img src="slike/g.jpg" alt="Jade Account Offer #5"></div>
-      <div class="jade-card" onclick="openJadeImg('slike/h.jpg')"><span class="jade-badge">#6</span><img src="slike/h.jpg" alt="Jade Account Offer #6"></div>
-      <div class="jade-card" onclick="openJadeImg('slike/j.jpg')"><span class="jade-badge">#7</span><img src="slike/j.jpg" alt="Jade Account Offer #7"></div>
-      <div class="jade-card" onclick="openJadeImg('slike/k.jpg')"><span class="jade-badge">#8</span><img src="slike/k.jpg" alt="Jade Account Offer #8"></div>
-      <div class="jade-card" onclick="openJadeImg('slike/l.jpg')"><span class="jade-badge">#9</span><img src="slike/l.jpg" alt="Jade Account Offer #9"></div>
-      <div class="jade-card" onclick="openJadeImg('slike/q.jpg')"><span class="jade-badge">#10</span><img src="slike/q.jpg" alt="Jade Account Offer #10"></div>
-      <div class="jade-card" onclick="openJadeImg('slike/w.jpg')"><span class="jade-badge">#11</span><img src="slike/w.jpg" alt="Jade Account Offer #11"></div>
+    <div class="jade-gallery-grid" id="jadeGalleryGrid" aria-live="polite">
+      <!-- Slike se automatski ucitavaju iz GitHub foldera /slike. -->
     </div>
     <div id="jadeLightbox" onclick="if(event.target === this) closeJadeImg()" style="display:none; position:fixed; inset:0; background:rgba(5,4,8,0.94); z-index:99999; justify-content:center; align-items:center; padding:20px;">
     <button type="button" class="lb-close" onclick="closeJadeImg()">✕ Close</button>
     <button type="button" class="lb-nav-btn lb-prev" onclick="changeJadeImg(-1)" title="Previous">❮</button>
     <img id="jadeLightboxImg" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Enlarged Offer" style="max-width:86vw; max-height:86vh; border:2.5px solid #ffcc00; border-radius:12px; box-shadow:0 0 35px rgba(168,85,247,0.85); cursor:default;">
     <button type="button" class="lb-nav-btn lb-next" onclick="changeJadeImg(1)" title="Next">❯</button>
-    <div id="jadeLightboxCounter" class="lb-counter">1 / 11</div>
+    <div id="jadeLightboxCounter" class="lb-counter">0 / 0</div>
   </div>
   <script>
+    const JADE_GITHUB_API = 'https://api.github.com/repos/GenesisGachaStore/Bleach-Soul-Resonance-APLUS-Jade-Accounts/contents/slike?ref=main';
+    const JADE_RAW_BASE = 'https://raw.githubusercontent.com/GenesisGachaStore/Bleach-Soul-Resonance-APLUS-Jade-Accounts/main/slike/';
     var jadeImagesList = [];
     var currentJadeIdx = 0;
 
     function refreshJadeList() {
-      jadeImagesList = [];
-      var imgs = document.querySelectorAll('.jade-card img');
-      imgs.forEach(function(el) {
-        jadeImagesList.push(el.getAttribute('src'));
+      jadeImagesList = Array.from(document.querySelectorAll('#jadeGalleryGrid .jade-card img'))
+        .filter(function(img) { return img.dataset.loaded !== 'false'; })
+        .map(function(img) { return img.src; });
+    }
+
+    function renderJadeGallery(files) {
+      var grid = document.getElementById('jadeGalleryGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      files.forEach(function(file) {
+        var card = document.createElement('div');
+        card.className = 'jade-card';
+        var badge = document.createElement('span');
+        badge.className = 'jade-badge';
+        badge.textContent = '#' + file.number;
+        var img = document.createElement('img');
+        img.src = file.url;
+        img.alt = 'Jade Account Offer #' + file.number;
+        img.loading = 'lazy';
+        img.dataset.loaded = 'true';
+        img.addEventListener('error', function() {
+          img.dataset.loaded = 'false';
+          card.remove();
+          refreshJadeList();
+        });
+        card.addEventListener('click', function() { openJadeImg(img.src); });
+        card.appendChild(badge);
+        card.appendChild(img);
+        grid.appendChild(card);
       });
+      refreshJadeList();
+    }
+
+    async function loadJadeGallery() {
+      var files = [];
+      try {
+        var response = await fetch(JADE_GITHUB_API, {
+          headers: { 'Accept': 'application/vnd.github+json' },
+          cache: 'no-cache'
+        });
+        if (!response.ok) throw new Error('GitHub API status: ' + response.status);
+        var items = await response.json();
+        files = items
+          .filter(function(item) {
+            return item.type === 'file' && /^img_(\d+)\.jpg$/i.test(item.name);
+          })
+          .map(function(item) {
+            var match = item.name.match(/^img_(\d+)\.jpg$/i);
+            return { number: Number(match[1]), url: item.download_url || (JADE_RAW_BASE + item.name) };
+          })
+          .sort(function(a, b) { return a.number - b.number; });
+      } catch (error) {
+        console.warn('Jade gallery: GitHub list could not be loaded; using numbered JPG fallback.', error);
+      }
+
+      // Fallback radi ako GitHub API privremeno nije dostupan ili je dosegnut limit.
+      if (!files.length) {
+        files = Array.from({ length: 11 }, function(_, index) {
+          var number = index + 1;
+          return { number: number, url: JADE_RAW_BASE + 'img_' + number + '.jpg' };
+        });
+      }
+      renderJadeGallery(files);
     }
 
     function openJadeImg(src) {
       refreshJadeList();
+      if (!jadeImagesList.length) return;
       currentJadeIdx = jadeImagesList.indexOf(src);
       if (currentJadeIdx === -1) currentJadeIdx = 0;
       updateJadeModal();
@@ -1416,7 +1468,8 @@ body,.layout,.grid,.columns,.side-col,.right-col,.left-col,.sidebar,.container,.
     }
 
     function changeJadeImg(step) {
-      if (jadeImagesList.length === 0) refreshJadeList();
+      if (!jadeImagesList.length) refreshJadeList();
+      if (!jadeImagesList.length) return;
       currentJadeIdx = (currentJadeIdx + step + jadeImagesList.length) % jadeImagesList.length;
       updateJadeModal();
     }
@@ -1424,12 +1477,8 @@ body,.layout,.grid,.columns,.side-col,.right-col,.left-col,.sidebar,.container,.
     function updateJadeModal() {
       var img = document.getElementById('jadeLightboxImg');
       var cnt = document.getElementById('jadeLightboxCounter');
-      if (img && jadeImagesList.length > 0) {
-        img.src = jadeImagesList[currentJadeIdx];
-      }
-      if (cnt && jadeImagesList.length > 0) {
-        cnt.innerText = (currentJadeIdx + 1) + ' / ' + jadeImagesList.length;
-      }
+      if (img && jadeImagesList.length > 0) img.src = jadeImagesList[currentJadeIdx];
+      if (cnt) cnt.innerText = jadeImagesList.length ? (currentJadeIdx + 1) + ' / ' + jadeImagesList.length : '0 / 0';
     }
 
     function closeJadeImg() {
@@ -1444,6 +1493,8 @@ body,.layout,.grid,.columns,.side-col,.right-col,.left-col,.sidebar,.container,.
       if (e.key === 'ArrowRight') changeJadeImg(1);
       if (e.key === 'ArrowLeft') changeJadeImg(-1);
     });
+
+    loadJadeGallery();
   </script>
   </main>
 
